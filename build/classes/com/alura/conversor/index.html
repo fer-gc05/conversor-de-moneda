@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Monedas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">Conversor de Monedas</h1>
+        <div class="mb-4">
+            <label for="fromCurrency" class="block text-sm font-medium text-gray-700">Moneda de origen</label>
+            <select id="fromCurrency" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                <option value="USD">USD - Dólar estadounidense</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - Libra esterlina</option>
+                <option value="JPY">JPY - Yen japonés</option>
+                <option value="AUD">AUD - Dólar australiano</option>
+                <option value="CAD">CAD - Dólar canadiense</option>
+                <option value="CHF">CHF - Franco suizo</option>
+                <option value="CNY">CNY - Yuan chino</option>
+                <option value="HKD">HKD - Dólar de Hong Kong</option>
+                <option value="INR">INR - Rupia india</option>
+                <option value="KRW">KRW - Won surcoreano</option>
+                <option value="MXN">MXN - Peso mexicano</option>
+                <option value="RUB">RUB - Rublo ruso</option>
+                <option value="SGD">SGD - Dólar de Singapur</option>
+                <option value="ZAR">ZAR - Rand sudafricano</option>
+                <option value="COP">COP - Peso colombiano</option> 
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="toCurrency" class="block text-sm font-medium text-gray-700">Moneda de destino</label>
+            <select id="toCurrency" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                <option value="USD">USD - Dólar estadounidense</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - Libra esterlina</option>
+                <option value="JPY">JPY - Yen japonés</option>
+                <option value="AUD">AUD - Dólar australiano</option>
+                <option value="CAD">CAD - Dólar canadiense</option>
+                <option value="CHF">CHF - Franco suizo</option>
+                <option value="CNY">CNY - Yuan chino</option>
+                <option value="HKD">HKD - Dólar de Hong Kong</option>
+                <option value="INR">INR - Rupia india</option>
+                <option value="KRW">KRW - Won surcoreano</option>
+                <option value="MXN">MXN - Peso mexicano</option>
+                <option value="RUB">RUB - Rublo ruso</option>
+                <option value="SGD">SGD - Dólar de Singapur</option>
+                <option value="ZAR">ZAR - Rand sudafricano</option>
+                <option value="COP">COP - Peso colombiano</option> 
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="amount" class="block text-sm font-medium text-gray-700">Cantidad</label>
+            <input type="number" id="amount" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        </div>
+        <button id="convertButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Convertir</button>
+        <div id="result" class="mt-4"></div>
+    </div>
+    <script>
+        document.getElementById('convertButton').addEventListener('click', () => {
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            const amount = document.getElementById('amount').value;
+
+            fetch(`/convertir?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('result').innerText = `Se convirtieron ${amount} ${fromCurrency} a ${toCurrency}: ${data}`;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = `Error: ${error}`;
+                });
+        });
+    </script>
+</body>
+</html>
